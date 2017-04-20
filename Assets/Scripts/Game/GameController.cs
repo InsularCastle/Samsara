@@ -14,7 +14,7 @@ public enum LevelType
 
 public class GameController : MonoBehaviour
 {
-    //public static GameConfig config;
+    public static GameConfig config;
 
     //private static Level _level;
 
@@ -27,8 +27,8 @@ public class GameController : MonoBehaviour
 
         _timerManager = new TimerManager();
 
-        //config = new GameConfig();
-        //config.LoadConfigs();
+        config = new GameConfig();
+        config.LoadConfigs();
 
         _wndManager = new WindowManager();
         WindowManager.Open<LoginWnd>().Init();
