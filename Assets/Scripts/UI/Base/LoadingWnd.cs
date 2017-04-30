@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEngine.UI;
 
 public class LoadingWnd : BaseWindow
 {
-
+    public void Init()
+    {
+        _wndTran.GetComponent<Loading>().Init();
+    }
 }

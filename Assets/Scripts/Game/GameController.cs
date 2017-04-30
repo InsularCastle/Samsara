@@ -16,6 +16,8 @@ public class GameController : MonoBehaviour
 {
     public static GameConfig config;
 
+    public static string levelName;
+
     private static Level _level;
 
     private WindowManager _wndManager;
@@ -23,7 +25,7 @@ public class GameController : MonoBehaviour
 
     void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(this);
 
         _timerManager = new TimerManager();
 
@@ -38,13 +40,11 @@ public class GameController : MonoBehaviour
     {
         if (level == (int)LevelType.Loading)
         {
-            LoadingLevel loadingLevel = new LoadingLevel();
-            loadingLevel.Init();
+            WindowManager.Open<LoadingWnd>().Init();
         }
         else if (level == (int)LevelType.City)
         {
-            CityLevel cityLevel = new CityLevel();
-            cityLevel.Init();
+            WindowManager.Open<ChooseLevelWnd>().Init();
         }
         else if (level >= (int)LevelType.Play)
         {
@@ -70,7 +70,7 @@ public class GameController : MonoBehaviour
         _level.Clear();
         _level = null;
         WindowManager.Close<PlayWnd>();
-        LoadingLevel.levelName = "City";
+        levelName = "City";
         Application.LoadLevelAsync("Loading");
     }
 }

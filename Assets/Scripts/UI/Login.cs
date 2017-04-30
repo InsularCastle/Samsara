@@ -3,12 +3,14 @@ using System.Collections;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class LoginWnd : BaseWindow
+public class Login : MonoBehaviour
 {
+    public Transform loginBtn;
+    public Transform loginText;
+
     public void Init()
     {
-        Transform loginBtn = _wndTran.FindChild("BtnLogin");
-        Transform loginText = _wndTran.FindChild("BtnLogin/Text");
+        
         UIEventListener.Get(loginBtn.gameObject).onPointerClick = OnLogin;
         loginText.GetComponent<Text>().text = Localization.Get("StartGame");
     }
@@ -16,7 +18,7 @@ public class LoginWnd : BaseWindow
     private void OnLogin(PointerEventData ped)
     {
         WindowManager.Close<LoginWnd>();
+        GameController.levelName = "City";
         Application.LoadLevelAsync("Loading");
-        LoadingLevel.levelName = "City";
     }
 }
