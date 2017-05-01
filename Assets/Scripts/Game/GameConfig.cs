@@ -8,6 +8,8 @@ public class GameConfig
 {
     public List<string> options;
 
+    public List<string> languages;
+
     public Dictionary<int, LevelConfig> levelConfigs;
 
     public void LoadConfigs()
@@ -29,8 +31,12 @@ public class GameConfig
                 switch (sqReader.GetString(sqReader.GetOrdinal("name")))
                 {
                     case "options":
-                        string value = sqReader.GetString(sqReader.GetOrdinal("value"));
-                        options = JsonHelper.DeserializeJsonToList<string>(value);
+                        string optionsValue = sqReader.GetString(sqReader.GetOrdinal("value"));
+                        options = JsonHelper.DeserializeJsonToList<string>(optionsValue);
+                        break;
+                    case "languages":
+                        string languagesValue = sqReader.GetString(sqReader.GetOrdinal("value"));
+                        languages = JsonHelper.DeserializeJsonToList<string>(languagesValue);
                         break;
                 }
             }
