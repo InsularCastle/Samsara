@@ -20,6 +20,11 @@ public class ChooseLevel : MonoBehaviour
     public Button confirmSetting;
     public Text confirmSettingText;
 
+    void Start()
+    {
+        Init();
+    }
+
     public void Init()
     {
         foreach (var option in GameController.config.options)
@@ -103,7 +108,7 @@ public class ChooseLevel : MonoBehaviour
         PlayerPrefs.SetString("Language", GameController.config.languages[languagesDropdown.value]);
         Localization.language = PlayerPrefs.GetString("Language", "English");
         SettingPanel.gameObject.SetActive(false);
-        WindowManager.Close<ChooseLevelWnd>();
-        WindowManager.Open<ChooseLevelWnd>().Init();
+        WindowManager.Close(UIMenu.ChooseLevelWnd);
+        WindowManager.Open(UIMenu.ChooseLevelWnd);
     }
 }

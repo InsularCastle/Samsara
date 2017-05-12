@@ -33,18 +33,18 @@ public class GameController : MonoBehaviour
         config.LoadConfigs();
 
         _wndManager = new WindowManager();
-        WindowManager.Open<LoginWnd>().Init();
+        WindowManager.Open(UIMenu.LoginWnd);
     }
 
     void OnLevelWasLoaded(int level)
     {
         if (level == (int)LevelType.Loading)
         {
-            WindowManager.Open<LoadingWnd>().Init();
+            WindowManager.Open(UIMenu.LoadingWnd);
         }
         else if (level == (int)LevelType.City)
         {
-            WindowManager.Open<ChooseLevelWnd>().Init();
+            WindowManager.Open(UIMenu.ChooseLevelWnd);
         }
         else if (level >= (int)LevelType.Play)
         {
@@ -69,7 +69,7 @@ public class GameController : MonoBehaviour
     {
         _level.Clear();
         _level = null;
-        WindowManager.Close<PlayWnd>();
+        WindowManager.Close(UIMenu.PlayWnd);
         levelName = "City";
         Application.LoadLevelAsync("Loading");
     }

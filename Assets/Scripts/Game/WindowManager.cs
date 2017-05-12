@@ -9,9 +9,44 @@ public class DontDestroyOnLoad : MonoBehaviour
     }
 }
 
+public class UIMaskLayer : MonoBehaviour
+{
+    void Start()
+    {
+        int width = Screen.width;
+        int height = Screen.height;
+        int designWidth = 1920;//开发时分辨率宽
+        int designHeight = 1080;//开发时分辨率高
+        float s1 = (float)designWidth / (float)designHeight;
+        float s2 = (float)width / (float)height;
+        if (s1 < s2)
+        {
+            designWidth = (int)Mathf.FloorToInt(designHeight * s2);
+        }
+        else if (s1 > s2)
+        {
+            designHeight = (int)Mathf.FloorToInt(designWidth / s2);
+        }
+        float contentScale = (float)designWidth / (float)width;
+        RectTransform rectTransform = this.transform as RectTransform;
+        if (rectTransform != null)
+        {
+            rectTransform.sizeDelta = new Vector2(designWidth, designHeight);
+        }
+    }
+}
+
+public enum UIMenu
+{
+    ChooseLevelWnd,
+    LoadingWnd,
+    LoginWnd,
+    PlayWnd
+}
+
 public class WindowManager
 {
-    private static Dictionary<string, BaseWindow> _windows = new Dictionary<string, BaseWindow>();
+    private static Dictionary<UIMenu, GameObject> _windows = new Dictionary<UIMenu, GameObject>();
 
     private static Transform _canvas;
 
@@ -29,18 +64,16 @@ public class WindowManager
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <returns></returns>
-    public static T Open<T>() where T : BaseWindow, new()
+    public static GameObject Open(UIMenu menu)
     {
-        string wndName = typeof(T).Name;
-        if (_windows.ContainsKey(wndName))
+        if (_windows.ContainsKey(menu))
         {
-            return _windows[wndName] as T;
+            return _windows[menu];
         }
         else
         {
-            T wnd = new T();
-            wnd.InitWnd(wndName, _canvas);
-            _windows.Add(wndName, wnd);
+            var wnd = InitWnd(menu);
+            _windows.Add(menu, wnd);
 
             return wnd;
         }
@@ -50,14 +83,12 @@ public class WindowManager
     /// 关闭界面
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public static void Close<T>() where T : BaseWindow
+    public static void Close(UIMenu menu)
     {
-        string wndName = typeof(T).Name;
-        if (_windows.ContainsKey(wndName))
+        if (_windows.ContainsKey(menu))
         {
-            T wnd = _windows[wndName] as T;
-            wnd.Close();
-            _windows.Remove(wndName);
+            GameObject.Destroy(_windows[menu]);
+            _windows.Remove(menu);
         }
     }
 
@@ -66,17 +97,29 @@ public class WindowManager
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <returns></returns>
-    public static T GetWnd<T>() where T : BaseWindow
+    public static GameObject GetWnd(UIMenu menu)
     {
-        string wndName = typeof(T).Name;
-        if (_windows.ContainsKey(wndName))
+        if (_windows.ContainsKey(menu))
         {
-            return _windows[wndName] as T;
+            return _windows[menu];
         }
         else
         {
             return null;
         }
+    }
+
+    private static GameObject InitWnd(UIMenu menu)
+    {
+        var obj = Resources.Load("UI/" + menu);
+        var go = (GameObject.Instantiate(obj) as GameObject);
+        go.name = menu.ToString();
+        go.transform.parent = _canvas;
+        go.transform.localPosition = Vector3.zero;
+        go.transform.localScale = Vector3.one;
+        go.AddComponent<UIMaskLayer>();
+
+        return go;
     }
 }
 

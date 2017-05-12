@@ -8,6 +8,11 @@ public class Loading : MonoBehaviour
 
     private AsyncOperation _op;
 
+    void Start()
+    {
+        Init();
+    }
+
     public void Init()
     {
         StartCoroutine(LoadLevel());
@@ -17,7 +22,7 @@ public class Loading : MonoBehaviour
     {
         _op = Application.LoadLevelAsync(GameController.levelName);
         yield return new WaitForEndOfFrame();
-        WindowManager.Close<LoadingWnd>();
+        WindowManager.Close(UIMenu.LoadingWnd);
     }
 
     void Update()

@@ -8,6 +8,11 @@ public class Login : MonoBehaviour
     public Transform loginBtn;
     public Transform loginText;
 
+    void Start()
+    {
+        Init();
+    }
+
     public void Init()
     {
         
@@ -17,7 +22,7 @@ public class Login : MonoBehaviour
 
     private void OnLogin(PointerEventData ped)
     {
-        WindowManager.Close<LoginWnd>();
+        WindowManager.Close(UIMenu.LoginWnd);
         GameController.levelName = "City";
         Application.LoadLevelAsync("Loading");
     }
