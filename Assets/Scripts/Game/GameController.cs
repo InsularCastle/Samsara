@@ -34,6 +34,8 @@ public class GameController : MonoBehaviour
 
         _wndManager = new WindowManager();
         WindowManager.Open(UIMenu.LoginWnd);
+
+        SoundManager.instance.PlayAudioBg("Title");
     }
 
     void OnLevelWasLoaded(int level)

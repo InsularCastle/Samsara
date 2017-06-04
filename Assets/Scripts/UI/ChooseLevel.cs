@@ -59,6 +59,8 @@ public class ChooseLevel : MonoBehaviour
         volume.text = Localization.Get("Volume");
         soundText.text = Localization.Get("Sound");
         voiceText.text = Localization.Get("Voice");
+        soundSlider.value = PlayerPrefs.GetFloat("SoundVolume", 1f);
+        voiceSlider.value = PlayerPrefs.GetFloat("VoiceVolume", 1f);
         UIEventListener.Get(closeSetting.gameObject).onPointerClick = OnCloseSettingClick;
         UpdateLanguageDropdown();
         UIEventListener.Get(confirmSetting.gameObject).onPointerClick = OnConfirmSettingClick;
@@ -110,5 +112,20 @@ public class ChooseLevel : MonoBehaviour
         SettingPanel.gameObject.SetActive(false);
         WindowManager.Close(UIMenu.ChooseLevelWnd);
         WindowManager.Open(UIMenu.ChooseLevelWnd);
+    }
+
+    void Update()
+    {
+        if (soundSlider.value != PlayerPrefs.GetFloat("SoundVolume"))
+        {
+            PlayerPrefs.SetFloat("SoundVolume", soundSlider.value);
+            SoundManager.instance.SetSFXVolume(soundSlider.value);
+        }
+
+        if (voiceSlider.value != PlayerPrefs.GetFloat("VoiceVolume"))
+        {
+            PlayerPrefs.SetFloat("VoiceVolume", voiceSlider.value);
+            SoundManager.instance.SetBgVolume(voiceSlider.value);
+        }
     }
 }
