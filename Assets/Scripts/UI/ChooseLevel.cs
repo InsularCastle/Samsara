@@ -23,6 +23,7 @@ public class ChooseLevel : MonoBehaviour
     void Start()
     {
         Init();
+        GameSoundManager.Instance.PlayCustomBGMConnnection("Town");
     }
 
     public void Init()
@@ -119,13 +120,13 @@ public class ChooseLevel : MonoBehaviour
         if (soundSlider.value != PlayerPrefs.GetFloat("SoundVolume"))
         {
             PlayerPrefs.SetFloat("SoundVolume", soundSlider.value);
-            SoundManager.instance.SetSFXVolume(soundSlider.value);
+            SoundManager.SetVolumeSFX(soundSlider.value);
         }
 
         if (voiceSlider.value != PlayerPrefs.GetFloat("VoiceVolume"))
         {
             PlayerPrefs.SetFloat("VoiceVolume", voiceSlider.value);
-            SoundManager.instance.SetBgVolume(voiceSlider.value);
+            SoundManager.SetVolumeMusic(voiceSlider.value);
         }
     }
 }

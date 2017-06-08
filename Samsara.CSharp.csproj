@@ -70,16 +70,70 @@
     <Reference Include="UnityEditor.iOS.Extensions.Common">
       <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Common.dll</HintPath>
     </Reference>
+    <Reference Include="DOTween">
+      <HintPath>Assets\Plugins\DOTween\DOTween.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>Assets\Plugins\Json\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Data.Sqlite">
+      <HintPath>Assets\Plugins\Sqlite\Mono.Data.Sqlite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data">
+      <HintPath>Assets\Plugins\Sqlite\System.Data.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Controllers\Game\GameController.cs" />
-    <Compile Include="Assets\Scripts\Models\Game\TimeManager.cs" />
-    <Compile Include="Assets\Scripts\Models\Game\UIEventListener.cs" />
-    <Compile Include="Assets\Scripts\Models\Observer\IObserber.cs" />
-    <Compile Include="Assets\Scripts\Models\Observer\Implements\AbstractObserver.cs" />
-    <Compile Include="Assets\Scripts\Models\Observer\Message.cs" />
-    <Compile Include="Assets\Scripts\Models\Window\WindowBase.cs" />
-    <Compile Include="Assets\Scripts\Models\Window\WindowManager.cs" />
+    <ProjectReference Include="Samsara.CSharp.Plugins.csproj">
+      <Project>{6C88B36A-C2E9-4289-F119-2B9D8E2CB0A7}</Project>
+      <Name>Samsara.CSharp.Plugins</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Assets\Scripts\Game\GameConfig.cs" />
+    <Compile Include="Assets\Scripts\Game\GameController.cs" />
+    <Compile Include="Assets\Scripts\Game\GameSoundManager.cs" />
+    <Compile Include="Assets\Scripts\Game\GameTimer.cs" />
+    <Compile Include="Assets\Scripts\Game\PoolManager.cs" />
+    <Compile Include="Assets\Scripts\Game\UIEventListener.cs" />
+    <Compile Include="Assets\Scripts\Game\WindowManager.cs" />
+    <Compile Include="Assets\Scripts\Level\Level.cs" />
+    <Compile Include="Assets\Scripts\Models\LevelConfig.cs" />
+    <Compile Include="Assets\Scripts\Observer\IObserber.cs" />
+    <Compile Include="Assets\Scripts\Observer\Implements\AbstractObserver.cs" />
+    <Compile Include="Assets\Scripts\Observer\Message.cs" />
+    <Compile Include="Assets\Scripts\UI\ChooseLevel.cs" />
+    <Compile Include="Assets\Scripts\UI\Loading.cs" />
+    <Compile Include="Assets\Scripts\UI\Login.cs" />
+    <Compile Include="Assets\Scripts\UI\Play.cs" />
+    <Compile Include="Assets\SoundManagerPro\Demo\DemoScripts\DemoPart1.cs" />
+    <Compile Include="Assets\SoundManagerPro\Demo\DemoScripts\DemoPart2.cs" />
+    <Compile Include="Assets\SoundManagerPro\Demo\DemoScripts\DemoPart3.cs" />
+    <Compile Include="Assets\SoundManagerPro\Demo\DemoScripts\ScriptWithEvents.cs" />
+    <Compile Include="Assets\SoundManagerPro\EditorHelper\EditorUpdateCheck.cs" />
+    <Compile Include="Assets\SoundManagerPro\Scripts\Classes\AudioSourcePro.cs" />
+    <Compile Include="Assets\SoundManagerPro\Scripts\Classes\AudioSubscription.cs" />
+    <Compile Include="Assets\SoundManagerPro\Scripts\Classes\ProxyEventAttribute.cs" />
+    <Compile Include="Assets\SoundManagerPro\Scripts\Classes\SFXGroup.cs" />
+    <Compile Include="Assets\SoundManagerPro\Scripts\Classes\SFXPoolInfo.cs" />
+    <Compile Include="Assets\SoundManagerPro\Scripts\Classes\SoundConnection.cs" />
+    <Compile Include="Assets\SoundManagerPro\Scripts\Classes\SoundPocket.cs" />
+    <Compile Include="Assets\SoundManagerPro\Scripts\Extensions\AudioSourceTools.cs" />
+    <Compile Include="Assets\SoundManagerPro\Scripts\Extensions\SoundManagerTools.cs" />
+    <Compile Include="Assets\SoundManagerPro\Scripts\Managers\Singleton.cs" />
+    <Compile Include="Assets\SoundManagerPro\Scripts\Managers\SoundManager.cs" />
+    <Compile Include="Assets\SoundManagerPro\Scripts\Managers\SoundManager_Editor.cs" />
+    <Compile Include="Assets\SoundManagerPro\Scripts\Managers\SoundManager_Essentials.cs" />
+    <Compile Include="Assets\SoundManagerPro\Scripts\Managers\SoundManager_Internal.cs" />
+    <Compile Include="Assets\SoundManagerPro\Scripts\Managers\SoundManager_SFX.cs" />
+    <Compile Include="Assets\SoundManagerPro\Scripts\Managers\SoundManager_SFX_Internal.cs" />
+    <Compile Include="Assets\SoundManagerPro\Scripts\Managers\SoundManager_Variables_Music.cs" />
+    <Compile Include="Assets\SoundManagerPro\Scripts\Managers\SoundManager_Variables_SFX.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Plugins\DOTween\DOTween.XML" />
+    <None Include="Assets\Plugins\DOTween\Editor\DOTweenEditor.XML" />
+    <None Include="Assets\Plugins\DOTween\readme.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

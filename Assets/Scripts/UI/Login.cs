@@ -11,11 +11,11 @@ public class Login : MonoBehaviour
     void Start()
     {
         Init();
+        GameSoundManager.Instance.PlayCustomBGMConnnection("Title");
     }
 
     public void Init()
     {
-        
         UIEventListener.Get(loginBtn.gameObject).onPointerClick = OnLogin;
         loginText.GetComponent<Text>().text = Localization.Get("StartGame");
     }
