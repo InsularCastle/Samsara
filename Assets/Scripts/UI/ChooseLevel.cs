@@ -28,7 +28,7 @@ public class ChooseLevel : MonoBehaviour
 
     public void Init()
     {
-        foreach (var option in GameController.config.options)
+        foreach (var option in GameController.config.GetOptions())
         {
             Transform optionTrans = GameObject.Instantiate<GameObject>(optionBtn.gameObject).transform;
             optionTrans.parent = optionBtnParent;
@@ -96,7 +96,7 @@ public class ChooseLevel : MonoBehaviour
     private void UpdateLanguageDropdown()
     {
         languagesDropdown.options.Clear();
-        foreach (var language in GameController.config.languages)
+        foreach (var language in GameController.config.GetLanguages())
         {
             var tempData = new Dropdown.OptionData();
             tempData.text = Localization.Get(language);
@@ -108,7 +108,7 @@ public class ChooseLevel : MonoBehaviour
 
     private void OnConfirmSettingClick(PointerEventData ped)
     {
-        PlayerPrefs.SetString("Language", GameController.config.languages[languagesDropdown.value]);
+        PlayerPrefs.SetString("Language", GameController.config.GetLanguages()[languagesDropdown.value]);
         Localization.language = PlayerPrefs.GetString("Language", "English");
         SettingPanel.gameObject.SetActive(false);
         WindowManager.Close(UIMenu.ChooseLevelWnd);

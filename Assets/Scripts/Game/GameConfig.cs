@@ -6,11 +6,11 @@ using Newtonsoft.Json;
 
 public class GameConfig
 {
-    public List<string> options;
+    private List<string> _options;
 
-    public List<string> languages;
+    private List<string> _languages;
 
-    public Dictionary<int, LevelConfig> levelConfigs;
+    public Dictionary<int, LevelConfig> _levelConfigs;
 
     public void LoadConfigs()
     {
@@ -20,6 +20,25 @@ public class GameConfig
         LoadGlobalConfig(db);
 
         db.CloseSqlConnection();
+    }
+
+    public List<string> GetOptions()
+    {
+        return _options;
+    }
+
+    public List<string> GetLanguages()
+    {
+        return _languages;
+    }
+
+    public LevelConfig GetLevelCfg(int levelID)
+    {
+        if (_levelConfigs.ContainsKey(levelID))
+        {
+            return _levelConfigs[levelID];
+        }
+        return null;
     }
 
     private void LoadGlobalConfig(DbAccess db)
@@ -32,11 +51,11 @@ public class GameConfig
                 {
                     case "options":
                         string optionsValue = sqReader.GetString(sqReader.GetOrdinal("value"));
-                        options = JsonHelper.DeserializeJsonToList<string>(optionsValue);
+                        _options = JsonHelper.DeserializeJsonToList<string>(optionsValue);
                         break;
                     case "languages":
                         string languagesValue = sqReader.GetString(sqReader.GetOrdinal("value"));
-                        languages = JsonHelper.DeserializeJsonToList<string>(languagesValue);
+                        _languages = JsonHelper.DeserializeJsonToList<string>(languagesValue);
                         break;
                 }
             }

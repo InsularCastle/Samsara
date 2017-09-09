@@ -34,6 +34,12 @@ public class GameController : MonoBehaviour
 
         _wndManager = new WindowManager();
         WindowManager.Open(UIMenu.LoginWnd);
+
+        // 初始化音量
+        var soundVolume = PlayerPrefs.GetFloat("SoundVolume", 1f);
+        SoundManager.SetVolumeSFX(soundVolume);
+        var voiceVolume = PlayerPrefs.GetFloat("VoiceVolume", 1f);
+        SoundManager.SetVolumeMusic(voiceVolume);
     }
 
     void OnLevelWasLoaded(int level)
@@ -48,7 +54,7 @@ public class GameController : MonoBehaviour
         }
         else if (level >= (int)LevelType.Play)
         {
-            _level = new Level(config.levelConfigs[Level.LevelID]);
+            _level = new Level(config.GetLevelCfg(Level.LevelID));
         }
     }
 
