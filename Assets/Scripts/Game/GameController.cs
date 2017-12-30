@@ -26,6 +26,7 @@ public class GameController : MonoBehaviour
     void Awake()
     {
         DontDestroyOnLoad(this);
+        DontDestroyOnLoad(Camera.main);
 
         _timerManager = new TimerManager();
 
