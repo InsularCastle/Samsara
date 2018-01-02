@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Mono.Data.Sqlite;
 using Newtonsoft.Json;
+using System.IO;
 
 public class GameConfig
 {
@@ -14,8 +15,21 @@ public class GameConfig
 
     public void LoadConfigs()
     {
-        string appDBPath = Application.dataPath + "/Resources/Samsara.db";
+        string appDBPath = "";
+#if UNITY_EDITOR
+        appDBPath = Application.dataPath + "/Plugins/Android/assets/" + "Samsara.db";
         DbAccess db = new DbAccess(@"Data Source=" + appDBPath);
+#elif UNITY_ANDROID && !UNITY_EDITOR
+        appDBPath = Application.persistentDataPath + "/Samsara.db";
+        if(!File.Exists(appDBPath))
+        {  
+            WWW loadDB = new WWW("jar:file://" + Application.dataPath + "!/assets/" + "Samsara.db");   
+  
+            while(!loadDB.isDone){}
+            File.WriteAllBytes(appDBPath, loadDB.bytes);
+        }  
+        DbAccess db = new DbAccess("URI=file:" + appDBPath);
+#endif
 
         LoadGlobalConfig(db);
 
