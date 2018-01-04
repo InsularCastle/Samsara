@@ -10,15 +10,11 @@ public class ChooseLevel : MonoBehaviour
     public Transform SettingPanel;
 
     //Setting
-    public Text volume;
     public Slider soundSlider;
-    public Text soundText;
     public Slider voiceSlider;
-    public Text voiceText;
     public Button closeSetting;
     public Dropdown languagesDropdown;
     public Button confirmSetting;
-    public Text confirmSettingText;
 
     void Start()
     {
@@ -36,7 +32,7 @@ public class ChooseLevel : MonoBehaviour
             optionTrans.localScale = Vector3.one;
             optionTrans.gameObject.SetActive(true);
             optionTrans.name = option;
-            Text text = optionTrans.FindChild("Text").GetComponent<Text>();
+            Text text = optionTrans.Find("Text").GetComponent<Text>();
             text.text = Localization.Get(option);
 
             switch (option)
@@ -57,15 +53,11 @@ public class ChooseLevel : MonoBehaviour
         }
 
         //Setting
-        volume.text = Localization.Get("Volume");
-        soundText.text = Localization.Get("Sound");
-        voiceText.text = Localization.Get("Voice");
         soundSlider.value = PlayerPrefs.GetFloat("SoundVolume", 1f);
         voiceSlider.value = PlayerPrefs.GetFloat("VoiceVolume", 1f);
         UIEventListener.Get(closeSetting.gameObject).onPointerClick = OnCloseSettingClick;
         UpdateLanguageDropdown();
         UIEventListener.Get(confirmSetting.gameObject).onPointerClick = OnConfirmSettingClick;
-        confirmSettingText.text = Localization.Get("Confirm");
     }
 
     private void OnNewGameClick(PointerEventData ped)
