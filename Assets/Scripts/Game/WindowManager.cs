@@ -56,7 +56,7 @@ public class WindowManager
         Transform uiTran = (GameObject.Instantiate(obj) as GameObject).transform;
         uiTran.gameObject.AddComponent<DontDestroyOnLoad>();
 
-        _canvas = uiTran.FindChild("Canvas");
+        _canvas = uiTran.Find("Canvas");
     }
 
     /// <summary>
